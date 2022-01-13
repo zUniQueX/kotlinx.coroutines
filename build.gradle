@@ -130,7 +130,7 @@ allprojects {
     }
 }
 
-apply plugin: "bom-conventions"
+//apply plugin: "bom-conventions"
 
 // Configure subprojects with Kotlin sources
 configure(subprojects.findAll { !sourceless.contains(it.name) }) {
