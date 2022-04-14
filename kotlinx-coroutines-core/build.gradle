@@ -128,7 +128,6 @@ kotlin {
     }
 }
 
-
 configurations {
     configureKotlinJvmPlatform(kotlinCompilerPluginClasspath)
 }
@@ -268,9 +267,15 @@ check.dependsOn moreTest
 
 task testsJar(type: Jar, dependsOn: jvmTestClasses) {
     classifier = 'tests'
-    from compileTestKotlinJvm.destinationDir
+    from compileTestKotlinJvm.destinationDirectory
 }
 
 artifacts {
     archives testsJar
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile) {
+    kotlinOptions {
+        freeCompilerArgs += "-Xuse-fir"
+    }
 }
