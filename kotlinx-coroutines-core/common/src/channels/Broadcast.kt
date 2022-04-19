@@ -49,8 +49,9 @@ public fun <E> ReceiveChannel<E>.broadcast(
     val scope = GlobalScope + Dispatchers.Unconfined + CoroutineExceptionHandler { _, _ -> }
     // We can run this coroutine in the context that ignores all exceptions, because of `onCompletion = consume()`
     // which passes all exceptions upstream to the source ReceiveChannel
+    val receiveChannel = this
     return scope.broadcast(capacity = capacity, start = start, onCompletion = { cancelConsumed(it) }) {
-        for (e in this@broadcast) {
+        for (e in receiveChannel) {
             send(e)
         }
     }
