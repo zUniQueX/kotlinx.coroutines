@@ -41,11 +41,9 @@ class MavenPublicationAtomicfuValidator {
             // check the bytecode of the class for ATOMIC_FU_REF excluding metadata
             val bytes = getInputStream(e).use { it.readBytes() }
             val outBytes = bytes.eraseMetadata()
-            if (outBytes.checkBytes()) {
             // The atomicfu compiler plugin does not remove atomic properties from metadata,
             // so for now we check that there are no ATOMIC_FU_REF left in the class bytecode excluding metadata.
             // This may be reverted after the fix in the compiler plugin transformer (for Kotlin 1.8.0).
-            val outBytes = bytes.eraseMetadata()
             if (outBytes.checkBytes()) {
                 foundClasses += e.name // report error at the end with all class names
             }
