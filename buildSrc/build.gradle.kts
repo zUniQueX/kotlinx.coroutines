@@ -4,13 +4,14 @@
 
 import java.util.*
 
+apply(from="src.main.kotlin.CommunityProjectsBuild.kt")
+
 plugins {
     `kotlin-dsl`
 }
 
 val cacheRedirectorEnabled = System.getenv("CACHE_REDIRECTOR")?.toBoolean() == true
 val buildSnapshotTrain = properties["build_snapshot_train"]?.toString()?.toBoolean() == true
-val kotlinDevUrl = project.rootProject.properties["kotlin_repo_url"] as? String // WA for CacheRedirector.kt
 
 
 repositories {
@@ -20,9 +21,8 @@ repositories {
     } else {
         maven("https://plugins.gradle.org/m2")
     }
-    if (!kotlinDevUrl.isNullOrEmpty()) {
-        maven(kotlinDevUrl)
-    }
+    addDevRepositoryIfEnabledForKts(this, project)
+
     if (buildSnapshotTrain) {
         mavenLocal()
     }
