@@ -57,6 +57,8 @@ fun addDevRepositoryIfEnabled(rh: RepositoryHandler, project: Project) {
  * Adds a kotlin-dev space repository with dev versions of Kotlin if Kotlin aggregate build is enabled
  * This is funcion purposed for kotlin scripting files
  */
-fun RepositoryHandler.addDevRepositoryIfEnabledForKts(rh: RepositoryHandler, project: Project) {
-    addDevRepositoryIfEnabled(rh, project)
+fun RepositoryHandler.addDevRepositoryIfEnabledForKts(rh: RepositoryHandler, repoUrl: URI) {
+    rh.maven {
+        url = repoUrl
+    }
 }

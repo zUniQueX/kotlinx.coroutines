@@ -4,7 +4,6 @@
 
 import java.util.*
 
-apply(from="src.main.kotlin.CommunityProjectsBuild.kt")
 
 plugins {
     `kotlin-dsl`
@@ -21,7 +20,6 @@ repositories {
     } else {
         maven("https://plugins.gradle.org/m2")
     }
-    addDevRepositoryIfEnabledForKts(this, project)
 
     if (buildSnapshotTrain) {
         mavenLocal()
