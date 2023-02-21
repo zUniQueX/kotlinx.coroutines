@@ -19,9 +19,7 @@ repositories {
     } else {
         maven("https://plugins.gradle.org/m2")
     }
-    if (!kotlinDevUrl.isNullOrEmpty()) {
-        maven(kotlinDevUrl)
-    }
+    maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev")
     if (buildSnapshotTrain) {
         mavenLocal()
     }

@@ -3,6 +3,12 @@
  */
 
 kotlin.sourceSets {
+    configureEach {
+        languageSettings {
+            apiVersion = "2.0"
+            languageVersion = "2.0"
+        }
+    }
     commonTest.dependencies {
         api "org.jetbrains.kotlin:kotlin-test-common:$kotlin_version"
         api "org.jetbrains.kotlin:kotlin-test-annotations-common:$kotlin_version"
