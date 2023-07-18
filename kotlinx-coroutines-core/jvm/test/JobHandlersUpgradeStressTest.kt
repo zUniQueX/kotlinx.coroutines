@@ -31,7 +31,7 @@ class JobHandlersUpgradeStressTest : TestBase() {
     @OptIn(ExperimentalStdlibApi::class)
     private var job: Job? = null
 
-    class State {
+    internal class State {
         val state = atomic(0)
     }
 
