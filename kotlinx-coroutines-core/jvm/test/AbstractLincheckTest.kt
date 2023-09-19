@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2021 JetBrains s.r.o. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2016-2023 JetBrains s.r.o. Use of this source code is governed by the Apache 2.0 license.
  */
 package kotlinx.coroutines
 
@@ -16,16 +16,16 @@ abstract class AbstractLincheckTest {
 
     @Test
     fun modelCheckingTest() = ModelCheckingOptions()
-        .iterations(if (isStressTest) 200 else 20)
-        .invocationsPerIteration(if (isStressTest) 10_000 else 1_000)
+        .iterations(20 * stressTestMultiplierSqrt)
+        .invocationsPerIteration(1_000 * stressTestMultiplierSqrt)
         .commonConfiguration()
         .customize(isStressTest)
         .check(this::class)
 
     @Test
     fun stressTest() = StressOptions()
-        .iterations(if (isStressTest) 200 else 20)
-        .invocationsPerIteration(if (isStressTest) 10_000 else 1_000)
+        .iterations(20 * stressTestMultiplierSqrt)
+        .invocationsPerIteration(1_000 * stressTestMultiplierSqrt)
         .commonConfiguration()
         .customize(isStressTest)
         .check(this::class)
