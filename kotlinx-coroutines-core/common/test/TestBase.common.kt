@@ -17,7 +17,7 @@ public expect val stressTestMultiplierSqrt: Int
 
 /**
  * The result of a multiplatform asynchronous test.
- * Aliases into Unit on K/JVM and K/N, and into Promise on K/JS.
+ * Aliases into Unit on K/JVM, K/N and K/WasmWasi, and into Promise on K/JS and K/WasmJs.
  */
 @Suppress("NO_ACTUAL_FOR_EXPECT")
 public expect class TestResult

@@ -16,4 +16,4 @@ actual fun testResultChain(block: () -> TestResult, after: (Result<Unit>) -> Tes
             null
         })
 
-actual typealias NoJs = Ignore
+actual typealias NoWasmJs = Ignore

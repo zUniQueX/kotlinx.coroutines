@@ -67,6 +67,13 @@ kotlin {
             api("org.jetbrains.kotlinx:atomicfu-wasm-js:${version("atomicfu")}")
         }
     }
+    @OptIn(org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl::class)
+    wasmWasi {
+        nodejs()
+        compilations["main"]?.dependencies {
+            api("org.jetbrains.kotlinx:atomicfu-wasm-wasi:${version("atomicfu")}")
+        }
+    }
     applyDefaultHierarchyTemplate()
     sourceSets {
         commonTest {
@@ -98,30 +105,48 @@ kotlin {
         val jsAndWasmSharedTest by registering {
             dependsOn(commonTest.get())
         }
-        jsMain {
+        val jsAndWasmJsSharedMain by registering {
             dependsOn(jsAndWasmSharedMain.get())
         }
-        jsTest {
+        val jsAndWasmJsSharedTest by registering {
             dependsOn(jsAndWasmSharedTest.get())
+        }
+        jsMain {
+            dependsOn(jsAndWasmJsSharedMain.get())
+        }
+        jsTest {
+            dependsOn(jsAndWasmJsSharedTest.get())
             dependencies {
                 api("org.jetbrains.kotlin:kotlin-test-js:${version("kotlin")}")
             }
         }
         val wasmJsMain by getting {
-            dependsOn(jsAndWasmSharedMain.get())
+            dependsOn(jsAndWasmJsSharedMain.get())
         }
         val wasmJsTest by getting {
-            dependsOn(jsAndWasmSharedTest.get())
+            dependsOn(jsAndWasmJsSharedTest.get())
             dependencies {
                 api("org.jetbrains.kotlin:kotlin-test-wasm-js:${version("kotlin")}")
+            }
+        }
+        val wasmWasiMain by getting {
+            dependsOn(jsAndWasmSharedMain.get())
+        }
+        val wasmWasiTest by getting {
+            dependsOn(jsAndWasmSharedTest.get())
+            dependencies {
+                api("org.jetbrains.kotlin:kotlin-test-wasm-wasi:${version("kotlin")}")
             }
         }
     }
 }
 
-// Disable intermediate sourceSet compilation because we do not need js-wasmJs artifact
+// Disable intermediate sourceSet compilation because we do not need js-wasm common artifact
 tasks.configureEach {
     if (name == "compileJsAndWasmSharedMainKotlinMetadata") {
+        enabled = false
+    }
+    if (name == "compileJsAndWasmJsSharedMainKotlinMetadata") {
         enabled = false
     }
 }

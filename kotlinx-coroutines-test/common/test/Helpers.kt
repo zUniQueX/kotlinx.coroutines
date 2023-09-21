@@ -96,3 +96,9 @@ expect annotation class NoJs()
 
 @OptionalExpectation
 expect annotation class NoNative()
+
+@OptionalExpectation
+expect annotation class NoWasmJs()
+
+@OptionalExpectation
+expect annotation class NoWasmWasi()

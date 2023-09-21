@@ -137,6 +137,8 @@ class RunTestTest {
     @Test
     @NoJs
     @NoNative
+    @NoWasmWasi
+    @NoWasmJs
     fun testListingActiveCoroutinesOnTimeout(): TestResult {
         val name1 = "GoodUniqueName"
         val name2 = "BadUniqueName"
