@@ -7,6 +7,7 @@ package kotlinx.coroutines.future
 import kotlinx.coroutines.*
 import kotlinx.coroutines.CancellationException
 import org.junit.*
+import org.junit.Ignore
 import org.junit.Test
 import java.util.concurrent.*
 import java.util.concurrent.atomic.*
@@ -573,6 +574,7 @@ class FutureTest : TestBase() {
     }
 
     @Test
+    @Ignore // Temporary ignored because of KT-64075
     fun testStackOverflow() = runTest {
         val future = CompletableFuture<Int>()
         val completed = AtomicLong()
