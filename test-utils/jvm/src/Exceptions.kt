@@ -10,14 +10,14 @@ import java.util.*
 import kotlin.coroutines.*
 import kotlin.test.*
 
-internal inline fun <reified T : Throwable> checkException(exception: Throwable): Boolean {
+inline fun <reified T : Throwable> checkException(exception: Throwable): Boolean {
     assertTrue(exception is T)
     assertTrue(exception.suppressed.isEmpty())
     assertNull(exception.cause)
     return true
 }
 
-internal fun checkCycles(t: Throwable) {
+fun checkCycles(t: Throwable) {
     val sw = StringWriter()
     t.printStackTrace(PrintWriter(sw))
     assertFalse(sw.toString().contains("CIRCULAR REFERENCE"))
@@ -43,7 +43,7 @@ class CapturingHandler : AbstractCoroutineContextElement(CoroutineExceptionHandl
     }
 }
 
-internal fun captureExceptionsRun(
+fun captureExceptionsRun(
     context: CoroutineContext = EmptyCoroutineContext,
     block: suspend CoroutineScope.() -> Unit
 ): Throwable {
@@ -52,7 +52,7 @@ internal fun captureExceptionsRun(
     return handler.getException()
 }
 
-internal fun captureMultipleExceptionsRun(
+fun captureMultipleExceptionsRun(
     context: CoroutineContext = EmptyCoroutineContext,
     block: suspend CoroutineScope.() -> Unit
 ): List<Throwable> {
