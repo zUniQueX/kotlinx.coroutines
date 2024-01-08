@@ -4,11 +4,11 @@
 
 package kotlinx.coroutines.javafx
 
+import kotlinx.coroutines.testing.*
 import javafx.application.*
 import kotlinx.coroutines.*
 import org.junit.*
 import org.junit.Test
-import javax.swing.*
 import kotlin.test.*
 
 class JavaFxDispatcherTest : MainDispatcherTestBase.WithRealTimeDelay() {

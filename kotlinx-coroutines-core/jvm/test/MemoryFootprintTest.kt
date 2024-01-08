@@ -4,6 +4,7 @@
 
 package kotlinx.coroutines
 
+import kotlinx.coroutines.testing.*
 import org.junit.Test
 import org.openjdk.jol.info.ClassLayout
 import kotlin.test.*

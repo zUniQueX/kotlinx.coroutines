@@ -4,6 +4,7 @@
 @file:Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 package kotlinx.coroutines.debug
 
+import kotlinx.coroutines.testing.*
 import com.google.gson.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.debug.internal.*

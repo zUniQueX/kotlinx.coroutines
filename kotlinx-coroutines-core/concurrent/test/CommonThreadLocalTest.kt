@@ -4,6 +4,7 @@
 
 package kotlinx.coroutines
 
+import kotlinx.coroutines.testing.*
 import kotlinx.coroutines.exceptions.*
 import kotlinx.coroutines.internal.*
 import kotlin.test.*

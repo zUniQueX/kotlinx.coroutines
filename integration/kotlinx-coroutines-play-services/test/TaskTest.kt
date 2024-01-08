@@ -4,6 +4,7 @@
 
 package kotlinx.coroutines.tasks
 
+import kotlinx.coroutines.testing.*
 import com.google.android.gms.tasks.*
 import kotlinx.coroutines.*
 import org.junit.*

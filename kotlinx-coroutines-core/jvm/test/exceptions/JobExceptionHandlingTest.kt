@@ -4,8 +4,10 @@
 
 package kotlinx.coroutines.exceptions
 
+import kotlinx.coroutines.testing.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.CoroutineStart.*
+import kotlinx.coroutines.testing.exceptions.*
 import org.junit.Test
 import java.io.*
 import kotlin.test.*

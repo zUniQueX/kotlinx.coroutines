@@ -4,6 +4,7 @@
 
 package kotlinx.coroutines
 
+import kotlinx.coroutines.testing.*
 import kotlinx.atomicfu.*
 import org.junit.*
 import java.util.concurrent.*

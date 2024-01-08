@@ -4,8 +4,9 @@
 
 package kotlinx.coroutines.reactive
 
+import kotlinx.coroutines.testing.*
 import kotlinx.coroutines.*
-import kotlinx.coroutines.exceptions.*
+import kotlinx.coroutines.testing.exceptions.*
 import org.junit.Test
 import org.junit.runner.*
 import org.junit.runners.*

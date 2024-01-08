@@ -1,9 +1,10 @@
 /*
- * Copyright 2016-2023 JetBrains s.r.o. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2016-2024 JetBrains s.r.o. Use of this source code is governed by the Apache 2.0 license.
  */
 
-package kotlinx.coroutines
+package kotlinx.coroutines.testing
 
+import kotlinx.coroutines.*
 import kotlin.test.*
 
 abstract class MainDispatcherTestBase: TestBase() {
@@ -106,7 +107,12 @@ abstract class MainDispatcherTestBase: TestBase() {
     }
 
     private suspend fun checkDispatchRequirements() {
-        isMainThread()?.let { assertNotEquals(it, Dispatchers.Main.immediate.isDispatchNeeded(currentCoroutineContext())) }
+        isMainThread()?.let {
+            assertNotEquals(
+                it,
+                Dispatchers.Main.immediate.isDispatchNeeded(currentCoroutineContext())
+            )
+        }
         assertTrue(Dispatchers.Main.isDispatchNeeded(currentCoroutineContext()))
         assertTrue(Dispatchers.Default.isDispatchNeeded(currentCoroutineContext()))
     }

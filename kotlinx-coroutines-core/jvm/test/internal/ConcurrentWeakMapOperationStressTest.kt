@@ -4,6 +4,7 @@
 
 package kotlinx.coroutines.internal
 
+import kotlinx.coroutines.testing.*
 import kotlinx.atomicfu.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.debug.internal.*

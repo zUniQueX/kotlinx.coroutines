@@ -4,6 +4,7 @@
 @file:Suppress("unused")
 package kotlinx.coroutines.lincheck
 
+import kotlinx.coroutines.testing.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.*
 import org.jetbrains.kotlinx.lincheck.*

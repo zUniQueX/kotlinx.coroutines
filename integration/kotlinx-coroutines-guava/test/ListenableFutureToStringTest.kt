@@ -4,6 +4,7 @@
 
 package kotlinx.coroutines.guava
 
+import kotlinx.coroutines.testing.*
 import kotlinx.coroutines.*
 import org.junit.Test
 import kotlin.test.*

@@ -4,9 +4,11 @@
 
 package kotlinx.coroutines.reactive
 
+import kotlinx.coroutines.testing.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.*
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.testing.flow.*
 import org.reactivestreams.*
 import kotlin.test.*
 

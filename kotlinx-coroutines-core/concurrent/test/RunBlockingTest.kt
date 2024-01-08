@@ -3,6 +3,7 @@
  */
 package kotlinx.coroutines
 
+import kotlinx.coroutines.testing.*
 import kotlinx.coroutines.exceptions.*
 import kotlin.coroutines.*
 import kotlin.test.*

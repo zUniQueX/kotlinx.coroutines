@@ -4,6 +4,7 @@
 
 package kotlinx.coroutines.time
 
+import kotlinx.coroutines.testing.*
 import kotlinx.coroutines.*
 import org.junit.Test
 import java.time.*

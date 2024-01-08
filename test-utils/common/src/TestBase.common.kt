@@ -1,11 +1,12 @@
 /*
- * Copyright 2016-2021 JetBrains s.r.o. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2016-2024 JetBrains s.r.o. Use of this source code is governed by the Apache 2.0 license.
  */
 
-package kotlinx.coroutines
+package kotlinx.coroutines.testing
 
 import kotlinx.atomicfu.*
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.*
 import kotlin.coroutines.*
 import kotlin.test.*
 import kotlin.time.*
@@ -132,7 +133,6 @@ public suspend inline fun <reified T : Throwable> assertFailsWith(flow: Flow<*>)
 public suspend fun Flow<Int>.sum() = fold(0) { acc, value -> acc + value }
 public suspend fun Flow<Long>.longSum() = fold(0L) { acc, value -> acc + value }
 
-
 // data is added to avoid stacktrace recovery because CopyableThrowable is not accessible from common modules
 public class TestException(message: String? = null, private val data: Any? = null) : Throwable(message)
 public class TestException1(message: String? = null, private val data: Any? = null) : Throwable(message)
@@ -154,7 +154,6 @@ public fun wrapperDispatcher(context: CoroutineContext): CoroutineContext {
 }
 
 public suspend fun wrapperDispatcher(): CoroutineContext = wrapperDispatcher(coroutineContext)
-
 class BadClass {
     override fun equals(other: Any?): Boolean = error("equals")
     override fun hashCode(): Int = error("hashCode")

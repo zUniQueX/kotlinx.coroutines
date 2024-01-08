@@ -7,6 +7,7 @@
 
 package kotlinx.coroutines
 
+import kotlinx.coroutines.testing.*
 import kotlin.test.*
 
 class DelayTest : TestBase() {

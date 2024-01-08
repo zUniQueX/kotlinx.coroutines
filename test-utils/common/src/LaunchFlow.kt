@@ -1,10 +1,11 @@
 /*
- * Copyright 2016-2019 JetBrains s.r.o. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2016-2024 JetBrains s.r.o. Use of this source code is governed by the Apache 2.0 license.
  */
 
-package kotlinx.coroutines.flow
+package kotlinx.coroutines.testing.flow
 
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
 import kotlin.jvm.*
 import kotlin.reflect.*
 
@@ -38,7 +39,7 @@ public class LaunchFlowBuilder<T> {
         check(onEach != null) { "onEach block should be registered first" }
         check(finally == null) { "exceptionHandlers block should be registered before finally block" }
         @Suppress("UNCHECKED_CAST")
-            exceptionHandlers[T::class] = action as Handler<Throwable>
+        exceptionHandlers[T::class] = action as Handler<Throwable>
     }
 
     public fun finally(action: suspend CoroutineScope.(cause: Throwable?) -> Unit) {

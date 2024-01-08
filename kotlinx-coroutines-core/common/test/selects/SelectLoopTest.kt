@@ -6,6 +6,7 @@
 
 package kotlinx.coroutines.selects
 
+import kotlinx.coroutines.testing.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.*
 import kotlin.test.*

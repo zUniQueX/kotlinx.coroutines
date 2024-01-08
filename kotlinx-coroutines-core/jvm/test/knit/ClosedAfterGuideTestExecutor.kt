@@ -4,6 +4,7 @@
 
 package kotlinx.coroutines // Trick to make guide tests use these declarations with executors that can be closed on our side implicitly
 
+import kotlinx.coroutines.testing.*
 import java.util.concurrent.*
 import java.util.concurrent.atomic.*
 import kotlin.coroutines.*

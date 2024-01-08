@@ -4,6 +4,7 @@
 
 package kotlinx.coroutines.rx2
 
+import kotlinx.coroutines.testing.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.*
 import kotlinx.coroutines.selects.*

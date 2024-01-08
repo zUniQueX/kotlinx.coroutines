@@ -4,6 +4,7 @@
 
 package kotlinx.coroutines.sync
 
+import kotlinx.coroutines.testing.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.exceptions.*
 import kotlinx.coroutines.selects.*

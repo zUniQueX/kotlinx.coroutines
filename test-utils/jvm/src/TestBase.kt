@@ -1,13 +1,14 @@
 /*
  * Copyright 2016-2024 JetBrains s.r.o. Use of this source code is governed by the Apache 2.0 license.
  */
-package kotlinx.coroutines
+package kotlinx.coroutines.testing
 
 import kotlinx.coroutines.scheduling.*
 import java.io.*
 import java.util.*
 import java.util.concurrent.atomic.*
 import kotlin.coroutines.*
+import kotlinx.coroutines.*
 import kotlin.test.*
 
 private val VERBOSE = try {

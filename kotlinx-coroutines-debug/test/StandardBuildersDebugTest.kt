@@ -3,6 +3,7 @@
  */
 package kotlinx.coroutines.debug
 
+import kotlinx.coroutines.testing.*
 import org.junit.Test
 import kotlin.test.*
 

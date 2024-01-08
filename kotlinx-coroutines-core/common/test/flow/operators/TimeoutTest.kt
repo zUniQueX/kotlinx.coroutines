@@ -4,6 +4,7 @@
 
 package kotlinx.coroutines.flow.operators
 
+import kotlinx.coroutines.testing.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.flow.internal.*

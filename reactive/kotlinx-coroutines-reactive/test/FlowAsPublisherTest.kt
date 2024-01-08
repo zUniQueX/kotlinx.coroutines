@@ -4,6 +4,7 @@
 
 package kotlinx.coroutines.reactive
 
+import kotlinx.coroutines.testing.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.*

@@ -4,10 +4,11 @@
 
 package kotlinx.coroutines.jdk9
 
+import kotlinx.coroutines.testing.*
 import kotlinx.coroutines.*
-import kotlinx.coroutines.exceptions.*
 import org.junit.Test
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.testing.exceptions.*
 import org.junit.runner.*
 import org.junit.runners.*
 import kotlin.contracts.*

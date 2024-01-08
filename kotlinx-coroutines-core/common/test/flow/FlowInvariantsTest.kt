@@ -4,8 +4,10 @@
 
 package kotlinx.coroutines.flow
 
+import kotlinx.coroutines.testing.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.*
+import kotlinx.coroutines.testing.flow.*
 import kotlin.coroutines.*
 import kotlin.reflect.*
 import kotlin.test.*

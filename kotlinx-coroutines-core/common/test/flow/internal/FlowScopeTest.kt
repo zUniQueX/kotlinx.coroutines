@@ -4,6 +4,7 @@
 
 package kotlinx.coroutines.flow.internal
 
+import kotlinx.coroutines.testing.*
 import kotlinx.coroutines.*
 import kotlin.test.*
 

@@ -4,6 +4,7 @@
 
 package kotlinx.coroutines.android
 
+import kotlinx.coroutines.testing.*
 import kotlinx.coroutines.*
 import org.jf.dexlib2.*
 import org.junit.Test

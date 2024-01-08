@@ -4,7 +4,8 @@
 
 package kotlinx.coroutines.time
 
-import kotlinx.coroutines.TestBase
+import kotlinx.coroutines.testing.*
+import kotlinx.coroutines.testing.TestBase
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.withVirtualTime

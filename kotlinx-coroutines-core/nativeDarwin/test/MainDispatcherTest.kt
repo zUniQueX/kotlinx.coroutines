@@ -4,7 +4,9 @@
 
 package kotlinx.coroutines
 
+import kotlinx.coroutines.testing.*
 import kotlinx.cinterop.*
+import kotlinx.coroutines.testing.*
 import platform.CoreFoundation.*
 import platform.darwin.*
 import kotlin.coroutines.*

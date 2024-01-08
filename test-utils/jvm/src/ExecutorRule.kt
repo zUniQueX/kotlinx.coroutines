@@ -2,11 +2,13 @@
  * Copyright 2016-2020 JetBrains s.r.o. Use of this source code is governed by the Apache 2.0 license.
  */
 
-package kotlinx.coroutines
+package kotlinx.coroutines.testing
 
+import kotlinx.coroutines.*
 import org.junit.rules.*
 import org.junit.runner.*
 import org.junit.runners.model.*
+import java.lang.Runnable
 import java.util.concurrent.*
 import kotlin.coroutines.*
 

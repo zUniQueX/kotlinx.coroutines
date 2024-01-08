@@ -4,6 +4,7 @@
 
 package kotlinx.coroutines.reactor
 
+import kotlinx.coroutines.testing.*
 import kotlinx.coroutines.*
 import org.junit.Before
 import org.junit.Test
