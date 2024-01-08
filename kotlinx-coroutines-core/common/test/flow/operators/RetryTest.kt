@@ -16,12 +16,12 @@ class RetryTest : TestBase() {
             throw TestException()
         }
         val sum = flow.retryWhen { cause, attempt ->
-            assertTrue(cause is TestException)
+            assertIs<TestException>(cause)
             expect(2 + attempt.toInt())
             attempt < 3
         }.catch { cause ->
             expect(6)
-            assertTrue(cause is TestException)
+            assertIs<TestException>(cause)
         }.sum()
         assertEquals(4, sum)
         finish(7)

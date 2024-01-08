@@ -81,7 +81,7 @@ class ChannelCancelUndeliveredElementStressTest : TestBase() {
                 }
             }
         } catch (e: Throwable) {
-            assertTrue(e is CancellationException) // the only exception possible in this test
+            assertIs<CancellationException>(e) // the only exception possible in this test
             dSendExceptionCnt++
             throw e
         }

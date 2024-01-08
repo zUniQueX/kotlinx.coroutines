@@ -79,8 +79,8 @@ class JobExtensionsTest : TestBase() {
     private inline fun checkException(block: () -> Unit) {
         val result = runCatching(block)
         val exception = result.exceptionOrNull() ?: fail()
-        assertTrue(exception is JobCancellationException)
-        assertTrue(exception.cause is TestException)
+        assertIs<JobCancellationException>(exception)
+        assertIs<TestException>(exception.cause)
     }
 
     @Test

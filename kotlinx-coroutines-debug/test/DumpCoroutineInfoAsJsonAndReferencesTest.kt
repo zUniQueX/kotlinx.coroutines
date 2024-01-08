@@ -70,12 +70,13 @@ class DumpCoroutineInfoAsJsonAndReferencesTest : DebugTestBase() {
         val lastObservedFrames = dumpResult[2]
         val coroutinesInfo = dumpResult[3]
 
-        assertTrue(coroutinesInfoAsJsonString is String)
-        assertTrue(lastObservedThreads is Array<*>)
-        assertTrue(lastObservedFrames is Array<*>)
-        assertTrue(coroutinesInfo is Array<*>)
+        assertIs<String>(coroutinesInfoAsJsonString)
+        assertIs<Array<*>>(lastObservedThreads)
+        assertIs<Array<*>>(lastObservedFrames)
+        assertIs<Array<*>>(coroutinesInfo)
 
-        val coroutinesInfoFromJson = Gson().fromJson(coroutinesInfoAsJsonString, Array<CoroutineInfoFromJson>::class.java)
+        val coroutinesInfoFromJson =
+            Gson().fromJson(coroutinesInfoAsJsonString, Array<CoroutineInfoFromJson>::class.java)
 
         val size = coroutinesInfo.size
         assertTrue(size != 0)
@@ -86,7 +87,7 @@ class DumpCoroutineInfoAsJsonAndReferencesTest : DebugTestBase() {
         for (i in 0 until size) {
             val info = coroutinesInfo[i]
             val infoFromJson = coroutinesInfoFromJson[i]
-            assertTrue(info is DebugCoroutineInfo)
+            assertIs<DebugCoroutineInfo>(info)
             assertEquals(info.lastObservedThread, lastObservedThreads[i])
             assertEquals(info.lastObservedFrame, lastObservedFrames[i])
             assertEquals(info.sequenceNumber, infoFromJson.sequenceNumber)

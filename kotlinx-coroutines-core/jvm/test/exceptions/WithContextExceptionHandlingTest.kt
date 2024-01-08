@@ -29,7 +29,7 @@ class WithContextExceptionHandlingTest(private val mode: Mode) : TestBase() {
          * Result: TE2
          */
         runCancellation(null, TestException2()) { e ->
-            assertTrue(e is TestException2)
+            assertIs<TestException2>(e)
             assertNull(e.cause)
             val suppressed = e.suppressed
             assertTrue(suppressed.isEmpty())
@@ -45,7 +45,7 @@ class WithContextExceptionHandlingTest(private val mode: Mode) : TestBase() {
          */
         val cancellationCause = TestCancellationException()
         runCancellation(cancellationCause, TestException2()) { e ->
-            assertTrue(e is TestException2)
+            assertIs<TestException2>(e)
             assertNull(e.cause)
             val suppressed = e.suppressed
             assertTrue(suppressed.isEmpty())
@@ -61,7 +61,7 @@ class WithContextExceptionHandlingTest(private val mode: Mode) : TestBase() {
          */
         val cancellationCause = TestCancellationException()
         runCancellation(cancellationCause, cancellationCause) { e ->
-            assertTrue(e is TestCancellationException)
+            assertIs<TestCancellationException>(e)
             assertNull(e.cause)
             val suppressed = e.suppressed
             assertTrue(suppressed.isEmpty())

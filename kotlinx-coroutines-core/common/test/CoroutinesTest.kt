@@ -240,7 +240,7 @@ class CoroutinesTest : TestBase() {
             job.cancelAndJoin() // join should crash on child's exception but it will be wrapped into CancellationException
         } catch (e: Throwable) {
             e as CancellationException // type assertion
-            assertTrue(e.cause is TestException)
+            assertIs<TestException>(e.cause)
             throw e
         }
         expectUnreached()

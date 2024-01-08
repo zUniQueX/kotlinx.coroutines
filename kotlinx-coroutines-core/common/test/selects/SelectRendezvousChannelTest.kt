@@ -339,7 +339,7 @@ class SelectRendezvousChannelTest : TestBase() {
             channel.onReceiveCatching {
                 expect(5)
                 assertTrue(it.isClosed)
-                assertTrue(it.exceptionOrNull() is TestException)
+                assertIs<TestException>(it.exceptionOrNull())
             }
         }
 

@@ -76,7 +76,7 @@ class PublishTest : TestBase() {
             override fun onComplete() { expectUnreached() }
             override fun onError(t: Throwable) {
                 expect(6)
-                assertTrue(t is RuntimeException)
+                assertIs<RuntimeException>(t)
                 assertEquals("OK", t.message)
             }
         })
@@ -90,7 +90,7 @@ class PublishTest : TestBase() {
         expect(1)
 
         val eh = CoroutineExceptionHandler { _, t ->
-            assertTrue(t is RuntimeException)
+            assertIs<RuntimeException>(t)
             expect(6)
         }
         val publisher = publish<Unit>(Dispatchers.Unconfined + eh) {
@@ -203,29 +203,34 @@ class PublishTest : TestBase() {
                 }
             }
             expect(2)
-            publisher.subscribe(object: Subscriber<Int> {
+            publisher.subscribe(object : Subscriber<Int> {
                 override fun onSubscribe(s: Subscription) {
                     expect(3)
                     s.request(Long.MAX_VALUE)
                 }
+
                 override fun onNext(t: Int) {
                     expect(6)
                     assertEquals(1, t)
                     job!!.cancel()
                     throw TestException()
                 }
+
                 override fun onError(t: Throwable?) {
                     /* Correct changes to the implementation could lead to us entering or not entering this method, but
                     it only matters that if we do, it is the "correct" exception that was validly used to cancel the
                     coroutine that gets passed here and not `TestException`. */
-                    assertTrue(t is CancellationException)
+                    assertIs<CancellationException>(t)
                 }
-                override fun onComplete() { expectUnreached() }
+
+                override fun onComplete() {
+                    expectUnreached()
+                }
             })
             expect(5)
             val result: ChannelResult<Unit> = producerScope!!.trySend(1)
             val e = result.exceptionOrNull()!!
-            assertTrue(e is CancellationException, "The actual error: $e")
+            assertIs<CancellationException>(e, "The actual error: $e")
             assertTrue(producerScope!!.isClosedForSend)
             assertTrue(result.isFailure)
         }

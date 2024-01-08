@@ -65,7 +65,7 @@ class ProduceExceptionsTest : TestBase() {
             produce.receive()
             expectUnreached()
         } catch (e: TestException) {
-            assertTrue(e.suppressed[0] is TestException2)
+            assertIs<TestException2>(e.suppressed[0])
         }
     }
 
@@ -162,7 +162,7 @@ class ProduceExceptionsTest : TestBase() {
             channel.receive()
         } catch (e: CancellationException) {
             // RECOVER_STACK_TRACES
-            assertTrue(e.cause?.cause is TestException2)
+            assertIs<TestException2>(e.cause?.cause)
             finish(4)
         }
     }

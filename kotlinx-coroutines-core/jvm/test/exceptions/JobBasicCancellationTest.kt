@@ -152,7 +152,7 @@ class JobBasicCancellationTest : TestBase() {
         assertTrue(deferred.completeExceptionally(IndexOutOfBoundsException()))
         assertFalse(deferred.completeExceptionally(AssertionError())) // second is too late
         val cause = deferred.getCancellationException().cause!!
-        assertTrue(cause is IndexOutOfBoundsException)
+        assertIs<IndexOutOfBoundsException>(cause)
         assertNull(cause.cause)
         assertTrue(cause.suppressed.isEmpty())
     }

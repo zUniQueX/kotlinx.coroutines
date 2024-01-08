@@ -41,7 +41,7 @@ class FlowAsObservableTest : TestBase() {
         expect(2)
         observable.subscribe({ expectUnreached() }, { error ->
             expect(4)
-            assertTrue(error is RuntimeException)
+            assertIs<RuntimeException>(error)
             assertEquals("OK", error.message)
         })
         finish(5)

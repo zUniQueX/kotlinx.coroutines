@@ -40,7 +40,7 @@ class FlowAsPublisherTest : TestBase() {
             }
 
             override fun onError(t: Throwable?) {
-                assertTrue(t is TestException)
+                assertIs<TestException>(t)
                 expect(4)
             }
         })

@@ -192,7 +192,7 @@ class JobExceptionHandlingTest : TestBase() {
             finish(5)
         }
 
-        assertTrue(exception is ArithmeticException)
+        assertIs<ArithmeticException>(exception)
         assertNull(exception.cause)
         assertTrue(exception.suppressed.isEmpty())
     }
@@ -232,11 +232,11 @@ class JobExceptionHandlingTest : TestBase() {
             finish(6)
         }
 
-        assertTrue(exception is ArithmeticException)
+        assertIs<ArithmeticException>(exception)
         val suppressed = exception.suppressed
         assertEquals(2, suppressed.size)
-        assertTrue(suppressed[0] is IOException)
-        assertTrue(suppressed[1] is IllegalArgumentException)
+        assertIs<IOException>(suppressed[0])
+        assertIs<IllegalArgumentException>(suppressed[1])
     }
 
     @Test
@@ -269,11 +269,11 @@ class JobExceptionHandlingTest : TestBase() {
             finish(5)
         }
 
-        assertTrue(exception is AssertionError)
+        assertIs<AssertionError>(exception)
         val suppressed = exception.suppressed
         assertEquals(2, suppressed.size)
-        assertTrue(suppressed[0] is IOException)
-        assertTrue(suppressed[1] is IllegalArgumentException)
+        assertIs<IOException>(suppressed[0])
+        assertIs<IllegalArgumentException>(suppressed[1])
     }
 
     @Test

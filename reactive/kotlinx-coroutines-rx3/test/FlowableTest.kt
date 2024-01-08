@@ -39,7 +39,7 @@ class FlowableTest : TestBase() {
             expectUnreached()
         }, { error ->
             expect(5)
-            assertTrue(error is RuntimeException)
+            assertIs<RuntimeException>(error)
             assertEquals("OK", error.message)
         })
         expect(3)

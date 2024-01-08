@@ -240,11 +240,11 @@ class AsyncTest : TestBase() {
     @Test
     fun testIncompleteAsyncState() = runTest {
         val deferred = async {
-            coroutineContext[Job]!!.invokeOnCompletion {  }
+            coroutineContext[Job]!!.invokeOnCompletion { }
         }
 
         deferred.await().dispose()
-        assertTrue(deferred.getCompleted() is DisposableHandle)
+        assertIs<DisposableHandle>(deferred.getCompleted())
         assertNull(deferred.getCompletionExceptionOrNull())
         assertTrue(deferred.isCompleted)
         assertFalse(deferred.isActive)
@@ -254,11 +254,11 @@ class AsyncTest : TestBase() {
     @Test
     fun testIncompleteAsyncFastPath() = runTest {
         val deferred = async(Dispatchers.Unconfined) {
-            coroutineContext[Job]!!.invokeOnCompletion {  }
+            coroutineContext[Job]!!.invokeOnCompletion { }
         }
 
         deferred.await().dispose()
-        assertTrue(deferred.getCompleted() is DisposableHandle)
+        assertIs<DisposableHandle>(deferred.getCompleted())
         assertNull(deferred.getCompletionExceptionOrNull())
         assertTrue(deferred.isCompleted)
         assertFalse(deferred.isActive)

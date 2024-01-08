@@ -104,7 +104,7 @@ class ShareInTest : TestBase() {
         sharingJob.join() // should complete sharing
         assertEquals(listOf("OK"), shared.replayCache) // cache is still there
         if (failed) {
-            assertTrue(sharingJob.getCompletionExceptionOrNull() is TestException)
+            assertIs<TestException>(sharingJob.getCompletionExceptionOrNull())
         } else {
             assertNull(sharingJob.getCompletionExceptionOrNull())
         }

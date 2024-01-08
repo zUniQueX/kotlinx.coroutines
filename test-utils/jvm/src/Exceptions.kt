@@ -11,7 +11,7 @@ import kotlin.coroutines.*
 import kotlin.test.*
 
 inline fun <reified T : Throwable> checkException(exception: Throwable): Boolean {
-    assertTrue(exception is T)
+    assertIs<T>(exception)
     assertTrue(exception.suppressed.isEmpty())
     assertNull(exception.cause)
     return true

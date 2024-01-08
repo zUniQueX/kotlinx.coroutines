@@ -158,7 +158,7 @@ class FutureTest : TestBase() {
             future.get()
             fail("'get' should've throw an exception")
         } catch (e: ExecutionException) {
-            assertTrue(e.cause is IllegalStateException)
+            assertIs<IllegalStateException>(e.cause)
             assertEquals("OK", e.cause!!.message)
         }
     }
@@ -240,14 +240,14 @@ class FutureTest : TestBase() {
 
         assertTrue(deferred.isCancelled)
         val completionException = deferred.getCompletionExceptionOrNull()!!
-        assertTrue(completionException is TestException)
+        assertIs<TestException>(completionException)
         assertEquals("something went wrong", completionException.message)
 
         try {
             deferred.await()
             fail("deferred.await() should throw an exception")
         } catch (e: Throwable) {
-            assertTrue(e is TestException)
+            assertIs<TestException>(e)
             assertEquals("something went wrong", e.message)
         }
     }
@@ -474,7 +474,7 @@ class FutureTest : TestBase() {
     private inline fun <reified T: Throwable> CompletableFuture<*>.checkFutureException(vararg suppressed: KClass<out Throwable>) {
         val e = assertFailsWith<ExecutionException> { get() }
         val cause = e.cause!!
-        assertTrue(cause is T)
+        assertIs<T>(cause)
         for ((index, clazz) in suppressed.withIndex()) {
             assertTrue(clazz.isInstance(cause.suppressed[index]))
         }

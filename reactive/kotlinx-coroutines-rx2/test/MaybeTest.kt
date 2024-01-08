@@ -66,7 +66,7 @@ class MaybeTest : TestBase() {
             expectUnreached()
         }, { error ->
             expect(5)
-            assertTrue(error is RuntimeException)
+            assertIs<RuntimeException>(error)
             assertEquals("OK", error.message)
         })
         expect(3)
@@ -320,7 +320,7 @@ class MaybeTest : TestBase() {
             maybe.awaitSingleOrNull()
             expectUnreached()
         } catch (e: TestException) {
-            assertTrue(e.suppressed[0] is TestException2)
+            assertIs<TestException2>(e.suppressed[0])
         }
     }
 
@@ -386,7 +386,7 @@ class MaybeTest : TestBase() {
     fun testFatalExceptionInSingle() = runTest {
         rxMaybe(Dispatchers.Unconfined) {
             throw LinkageError()
-        }.subscribe({ expectUnreached()  }, { expect(1); assertTrue(it is LinkageError) })
+        }.subscribe({ expectUnreached()  }, { expect(1); assertIs<LinkageError>(it) })
         finish(2)
     }
 }

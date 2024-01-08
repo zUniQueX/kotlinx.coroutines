@@ -143,7 +143,7 @@ internal suspend inline fun <reified E: Throwable> assertCallsExceptionHandlerWi
     return withContext(handler) {
         operation(handler)
         handler.getException().let {
-            assertTrue(it is E, it.toString())
+            assertIs<E>(it, it.toString())
             it
         }
     }

@@ -53,7 +53,7 @@ class JobChildStressTest : TestBase() {
             assertNull(unhandledException)
             if (wasLaunched) {
                 val exception = parent.getCompletionExceptionOrNull()
-                assertTrue(exception is TestException, "exception=$exception")
+                assertIs<TestException>(exception, "exception=$exception")
             }
         }
     }

@@ -145,7 +145,7 @@ class StateFlowTest : TestBase() {
                 }
             }
             .catch { e ->
-                assertTrue(e is TestException)
+                assertIs<TestException>(e)
                 expect(6)
             }
             .launchIn(this)

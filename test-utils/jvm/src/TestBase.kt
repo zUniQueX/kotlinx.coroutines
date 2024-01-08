@@ -250,7 +250,7 @@ public actual open class TestBase(private var disableOutCheck: Boolean)  {
 
     protected inline fun <reified T: Throwable> assertFailsWith(block: () -> Unit): T {
         val result = runCatching(block)
-        assertTrue(result.exceptionOrNull() is T, "Expected ${T::class}, but had $result")
+        assertIs<T>(result.exceptionOrNull(), "Expected ${T::class}, but had $result")
         return result.exceptionOrNull()!! as T
     }
 

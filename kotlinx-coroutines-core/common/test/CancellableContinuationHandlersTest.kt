@@ -50,7 +50,7 @@ class CancellableContinuationHandlersTest : TestBase() {
             suspendCancellableCoroutine<Unit> { c ->
                 c.cancel()
                 c.invokeOnCancellation {
-                    assertTrue(it is CancellationException)
+                    assertIs<CancellationException>(it)
                     expect(1)
                 }
                 assertFailsWith<IllegalStateException> { c.invokeOnCancellation { expectUnreached() } }
@@ -90,7 +90,7 @@ class CancellableContinuationHandlersTest : TestBase() {
                     cont = c
                     // Set IOC first -- not called (completed)
                     c.invokeOnCancellation {
-                        assertTrue(it is CancellationException)
+                        assertIs<CancellationException>(it)
                         expect(4)
                     }
                     expect(1)

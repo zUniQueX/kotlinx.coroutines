@@ -65,7 +65,7 @@ class AsFutureTest : TestBase() {
             expectUnreached()
         } catch (e: ExecutionException) {
             assertTrue(future.isCompletedExceptionally)
-            assertTrue(e.cause is OutOfMemoryError)
+            assertIs<OutOfMemoryError>(e.cause)
             finish(2)
         }
     }
@@ -81,7 +81,7 @@ class AsFutureTest : TestBase() {
             expectUnreached()
         } catch (e: ExecutionException) {
             assertTrue(future.isCompletedExceptionally)
-            assertTrue(e.cause is OutOfMemoryError)
+            assertIs<OutOfMemoryError>(e.cause)
             finish(2)
         }
     }
@@ -119,6 +119,6 @@ class AsFutureTest : TestBase() {
         assertTrue(deferred.isCancelled)
         assertTrue(deferred.isCompleted)
         assertFalse(deferred.isActive)
-        assertTrue(deferred.getCompletionExceptionOrNull() is CancellationException)
+        assertIs<CancellationException>(deferred.getCompletionExceptionOrNull())
     }
 }

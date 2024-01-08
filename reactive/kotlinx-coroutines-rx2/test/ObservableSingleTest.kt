@@ -64,7 +64,7 @@ class ObservableSingleTest : TestBase() {
         }
 
         checkErroneous(observable) {
-            assertTrue(it is IllegalArgumentException)
+            assertIs<IllegalArgumentException>(it)
         }
     }
 
@@ -204,7 +204,7 @@ class ObservableSingleTest : TestBase() {
         }
 
         checkErroneous(observable) {
-            assertTrue(it is IllegalStateException)
+            assertIs<IllegalStateException>(it)
             assertEquals("OK", it.message)
         }
     }

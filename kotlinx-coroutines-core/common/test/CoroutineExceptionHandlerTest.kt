@@ -23,7 +23,7 @@ class CoroutineExceptionHandlerTest : TestBase() {
         expect(2)
         job.join()
         finish(4)
-        assertTrue(coroutineException is TestException)
+        assertIs<TestException>(coroutineException)
         assertTrue(parent.isCancelled)
     }
 
@@ -42,6 +42,6 @@ class CoroutineExceptionHandlerTest : TestBase() {
         job.join()
         finish(3)
         assertTrue(parent.isCancelled)
-        assertTrue(parent.getCompletionExceptionOrNull() is TestException)
+        assertIs<TestException>(parent.getCompletionExceptionOrNull())
     }
 }

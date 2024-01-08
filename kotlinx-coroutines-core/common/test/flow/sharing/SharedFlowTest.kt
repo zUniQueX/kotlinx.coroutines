@@ -614,7 +614,7 @@ class SharedFlowTest : TestBase() {
                 throw TestException()
             }
             .catch { e ->
-                assertTrue(e is TestException)
+                assertIs<TestException>(e)
                 expect(3)
             }
             .collect {

@@ -33,9 +33,9 @@ class CoroutineExceptionHandlerJvmTest : TestBase() {
         }
 
         job.join()
-        assertTrue(caughtException is RuntimeException)
-        assertTrue(caughtException.cause is AssertionError)
-        assertTrue(caughtException.suppressed[0] is TestException)
+        assertIs<RuntimeException>(caughtException)
+        assertIs<AssertionError>(caughtException.cause)
+        assertIs<TestException>(caughtException.suppressed[0])
 
         finish(3)
     }
@@ -47,7 +47,7 @@ class CoroutineExceptionHandlerJvmTest : TestBase() {
             expect(2)
             throw TestException()
         }.join()
-        assertTrue(caughtException is TestException)
+        assertIs<TestException>(caughtException)
         assertContains(caughtException.suppressed[0].toString(), "last-ditch")
         finish(3)
     }
