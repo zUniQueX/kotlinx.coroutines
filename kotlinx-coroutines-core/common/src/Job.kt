@@ -357,7 +357,7 @@ public interface Job : CoroutineContext.Element {
     public fun invokeOnCompletion(
         onCancelling: Boolean = false,
         invokeImmediately: Boolean = true,
-        handler: CompletionHandler): DisposableHandle
+        handler: InternalCompletionHandler): DisposableHandle
 
     // ------------ unstable internal API ------------
 
@@ -491,7 +491,7 @@ public interface ChildHandle : DisposableHandle {
  * ```
  */
 internal fun Job.disposeOnCompletion(handle: DisposableHandle): DisposableHandle =
-    invokeOnCompletion(handler = DisposeOnCompletion(handle).asHandler)
+    invokeOnCompletion(handler = DisposeOnCompletion(handle))
 
 /**
  * Cancels the job and suspends the invoking coroutine until the cancelled job is complete.
