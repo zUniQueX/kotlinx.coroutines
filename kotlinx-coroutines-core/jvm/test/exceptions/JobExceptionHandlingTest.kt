@@ -194,9 +194,7 @@ class JobExceptionHandlingTest : TestBase() {
             finish(5)
         }
 
-        assertIs<ArithmeticException>(exception)
-        assertNull(exception.cause)
-        assertTrue(exception.suppressed.isEmpty())
+        checkException<ArithmeticException>(exception)
     }
 
     @Test
@@ -235,6 +233,7 @@ class JobExceptionHandlingTest : TestBase() {
         }
 
         assertIs<ArithmeticException>(exception)
+        assertNull(exception.cause)
         val suppressed = exception.suppressed
         assertEquals(2, suppressed.size)
         assertIs<IOException>(suppressed[0])

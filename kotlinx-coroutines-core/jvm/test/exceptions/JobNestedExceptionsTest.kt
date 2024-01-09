@@ -88,7 +88,7 @@ class JobNestedExceptionsTest : TestBase() {
 
     @Test
     fun testChildThrowsDuringCompletion() {
-        val exceptions = captureMultipleExceptionsRun {
+        val exception = captureExceptionsRun {
             expect(1)
             val job = launch(NonCancellable + CoroutineName("outer"), start = CoroutineStart.ATOMIC) {
                 expect(2)
@@ -110,8 +110,6 @@ class JobNestedExceptionsTest : TestBase() {
             finish(7)
         }
 
-        assertEquals(1, exceptions.size, "Found $exceptions")
-        val exception = exceptions[0]
         assertIs<ArithmeticException>(exception, "Exception is $exception")
         val suppressed = exception.suppressed
         val ioe = suppressed[0]

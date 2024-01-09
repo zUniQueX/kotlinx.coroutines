@@ -10,6 +10,7 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.channels.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.sync.*
+import kotlinx.coroutines.testing.exceptions.*
 import org.junit.Test
 import org.reactivestreams.*
 import java.util.concurrent.*

@@ -7,6 +7,7 @@ package kotlinx.coroutines.jdk9
 import kotlinx.coroutines.testing.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.*
+import kotlinx.coroutines.testing.exceptions.*
 import org.junit.Test
 import java.util.concurrent.Flow as JFlow
 import kotlin.test.*

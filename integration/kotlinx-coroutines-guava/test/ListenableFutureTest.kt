@@ -132,7 +132,7 @@ class ListenableFutureTest : TestBase() {
     @Test
     fun testFutureLazyStartThrows() {
         expect(1)
-        val e = assertFailsWith<IllegalArgumentException> {
+        val e = kotlin.test.assertFailsWith<IllegalArgumentException> {
             GlobalScope.future(start = CoroutineStart.LAZY) {}
         }
 
