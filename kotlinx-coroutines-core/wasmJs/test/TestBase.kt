@@ -21,20 +21,18 @@ public actual typealias TestResult = MyPromise
 
 public actual val isNative = false
 
-@Suppress("NO_ACTUAL_CLASS_MEMBER_FOR_EXPECTED_CLASS") // Counterpart for @Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
 public actual open class TestBase actual constructor() {
     public actual val isBoundByJsTestTimeout = true
     private var actionIndex = 0
     private var finished = false
     private var error: Throwable? = null
-    private var lastTestPromise: Promise<JsAny?>? = null
+    private var lastTestPromise: Promise<*>? = null
 
     /**
      * Throws [IllegalStateException] like `error` in stdlib, but also ensures that the test will not
      * complete successfully even if this exception is consumed somewhere in the test.
      */
-    @Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
-    public actual fun error(message: Any, cause: Throwable? = null): Nothing {
+    public actual fun error(message: Any, cause: Throwable?): Nothing {
         if (cause != null) println(cause)
         val exception = IllegalStateException(
             if (cause == null) message.toString() else "$message; caused by $cause")
@@ -45,7 +43,7 @@ public actual open class TestBase actual constructor() {
     private fun printError(message: String, cause: Throwable) {
         if (error == null) error = cause
         println("$message: $cause")
-        println(cause)
+        kotlin.io.println(cause)
     }
 
     /**
@@ -60,7 +58,7 @@ public actual open class TestBase actual constructor() {
      * Asserts that this line is never executed.
      */
     public actual fun expectUnreached() {
-        error("Should not be reached")
+        kotlin.error("Should not be reached")
     }
 
     /**
@@ -85,10 +83,13 @@ public actual open class TestBase actual constructor() {
         finished = false
     }
 
-    @Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
+    actual fun println(message: Any?) {
+        kotlin.io.println(message)
+    }
+
     public actual fun runTest(
-        expected: ((Throwable) -> Boolean)? = null,
-        unhandled: List<(Throwable) -> Boolean> = emptyList(),
+        expected: ((Throwable) -> Boolean)?,
+        unhandled: List<(Throwable) -> Boolean>,
         block: suspend CoroutineScope.() -> Unit
     ): TestResult {
         var exCount = 0
