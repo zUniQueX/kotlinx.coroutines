@@ -4,13 +4,13 @@
 
 package kotlinx.coroutines
 
-import kotlin.coroutines.*
+import kotlinx.coroutines.internal.*
 
 public actual val isStressTest: Boolean = false
 public actual val stressTestMultiplier: Int = 1
 public actual val stressTestMultiplierSqrt: Int = 1
 
-@Suppress("ACTUAL_WITHOUT_EXPECT", "ACTUAL_TYPE_ALIAS_TO_CLASS_WITH_DECLARATION_SITE_VARIANCE")
+@Suppress("ACTUAL_WITHOUT_EXPECT")
 public actual typealias TestResult = Unit
 
 public actual val isNative = false
@@ -79,20 +79,9 @@ public actual open class TestBase actual constructor() {
         kotlin.io.println(message)
     }
 
-    private fun runTestCoroutine(context: CoroutineContext, block: suspend CoroutineScope.() -> Unit) {
-        val newContext = GlobalScope.newCoroutineContext(context)
-        val coroutine = object: AbstractCoroutine<Unit>(newContext, true, true) {}
-        runEventLoop {
-            coroutine.start(CoroutineStart.DEFAULT, coroutine, block)
-        }
-
-        if (coroutine.isCancelled) throw coroutine.getCancellationException().let { it.cause ?: it }
-    }
-
-    @Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
     public actual fun runTest(
-        expected: ((Throwable) -> Boolean)? = null,
-        unhandled: List<(Throwable) -> Boolean> = emptyList(),
+        expected: ((Throwable) -> Boolean)?,
+        unhandled: List<(Throwable) -> Boolean>,
         block: suspend CoroutineScope.() -> Unit
     ): TestResult {
         var exCount = 0

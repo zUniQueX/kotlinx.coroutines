@@ -1,9 +1,11 @@
 /*
- * Copyright 2016-2023 JetBrains s.r.o. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2016-2024 JetBrains s.r.o. Use of this source code is governed by the Apache 2.0 license.
  */
 
-package kotlinx.coroutines
+package kotlinx.coroutines.internal
 
+import kotlinx.coroutines.*
+import kotlin.coroutines.*
 import kotlin.math.min
 import kotlin.wasm.WasmImport
 import kotlin.wasm.unsafe.MemoryAllocator
@@ -32,7 +34,6 @@ internal class Event internal constructor(internal var callback: (() -> Unit)?, 
     }
 }
 
-private var inEventLoop = false
 private var currentCycleEvents = mutableListOf<Event>()
 private var nextCycleEvents = mutableListOf<Event>()
 private var thrownExceptions = mutableListOf<Throwable>()
@@ -136,7 +137,7 @@ private fun runEventCycle(currentTime: Long) {
 }
 
 @OptIn(UnsafeWasmMemoryApi::class)
-private fun processEventLoop() {
+internal fun runEventLoop() {
     if (nextCycleEvents.isEmpty()) return
 
     withScopedMemoryAllocator { allocator ->
@@ -168,12 +169,21 @@ private fun processEventLoop() {
             }
         }
     }
+
+    if (thrownExceptions.isNotEmpty()) {
+        val exceptionToThrow = thrownExceptions.singleOrNull() ?: EventLoopException(thrownExceptions.toList())
+        thrownExceptions.clear()
+        throw exceptionToThrow
+    }
 }
 
 /* Register new event with specified timeout in nanoseconds */
 @OptIn(UnsafeWasmMemoryApi::class)
 internal fun registerEvent(timeout: Long, callback: () -> Unit): Event {
-    if (!inEventLoop) throw InvalidEventLoopContext
+    if (kotlin.wasm.internal.onExportedFunctionExit == null) {
+        kotlin.wasm.internal.onExportedFunctionExit = ::runEventLoop
+    }
+
     require(timeout >= 0L) { "Timeout cannot be negative" }
     val taskAbsoluteTime: Long
     if (timeout > 0L) {
@@ -193,48 +203,4 @@ internal fun registerEvent(timeout: Long, callback: () -> Unit): Event {
     val event = Event(callback, taskAbsoluteTime)
     nextCycleEvents.add(event)
     return event
-}
-
-/**
- * Thrown when multiply exception were thrown in event loop.
- * @see runEventLoop
- */
-public class EventLoopException(public val causes: List<Throwable>) : Throwable("Multiple exceptions were thrown in the event loop.")
-
-/**
- * Thrown by the coroutine default dispatcher when it used out of a context of the event loop.
- * It signalises that a coroutine code should be placed into event loop context.
- * @see runEventLoop
- * @see Dispatchers.Default
- */
-public object InvalidEventLoopContext : Throwable("To use coroutines please it under runEventLoop.")
-
-/**
- * Starts event loop used by coroutine default dispatcher.
- * The event loop will throw an exception by executed body and coroutines (or combined EventLoopException if multiply exceptions were thrown).
- * @see Dispatchers.Default
- * @see EventLoopException
- */
-public fun <T : Any?> runEventLoop(body: () -> T): T {
-    if (inEventLoop) return body()
-
-    inEventLoop = true
-    thrownExceptions.clear()
-
-    var result: T? = null
-    try {
-        result = body()
-    } catch (e: Throwable) {
-        thrownExceptions.add(e)
-    }
-
-    processEventLoop()
-    inEventLoop = false
-
-    if (thrownExceptions.isEmpty()) {
-        @Suppress("UNCHECKED_CAST")
-        return result as T
-    } else {
-        throw thrownExceptions.singleOrNull() ?: EventLoopException(thrownExceptions.toList())
-    }
 }

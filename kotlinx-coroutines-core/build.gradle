@@ -230,11 +230,14 @@ kotlin.sourceSets {
 }
 
 kotlin.sourceSets.configureEach {
+    languageSettings.optIn('kotlin.wasm.internal.InternalWasmApi')
+
     // Do not apply 'ExperimentalForeignApi' where we have allWarningsAsErrors set
     if (it.name in ["jvmMain", "jvmCoreMain", "jsMain", 'wasmWasiMain', 'wasmJsMain', 'jsAndWasmSharedMain', "jsAndWasmJsSharedMain", "concurrentMain", "commonMain"]) return
     languageSettings {
         optIn('kotlinx.cinterop.ExperimentalForeignApi')
         optIn('kotlin.experimental.ExperimentalNativeApi')
+        optIn('kotlin.wasm.internal.InternalWasmApi')
     }
 }
 
